@@ -13,20 +13,21 @@ This system analyzes medication preparation workflows in healthcare settings to 
 
 ### **📈 Analysis Reports & Visualizations**
 
-**Delay Plot**
-<img width="800" height="600" alt="delays" src="https://github.com/user-attachments/assets/8f11c6f4-a893-4b64-9a4b-51c86151b69e" />
+**Delays Plot**
+<img width="3883" height="2487" alt="delays" src="https://github.com/user-attachments/assets/9315e15d-ef66-4081-917f-b7044b2ec661" />
+
 
 **Interactive EDA Report**: 📊 Comprehensive Data Analysis(reports/eda/summary.html)
 Also at console
 
 **Feature Importance Plots** (More at console)
-<img width="600" height="800" alt="tat_shap_analysis_xgboost" src="https://github.com/user-attachments/assets/3998efda-9ef4-4155-bade-bde2952782c0" />
-<img width="600" height="800" alt="tat_shap_analysis_random_forest" src="https://github.com/user-attachments/assets/e4c8065c-108c-4667-bc1a-836181cf326b" />
-<img width="600" height="800" alt="tat_shap_analysis_linear" src="https://github.com/user-attachments/assets/b6f6e25c-4906-40cd-a67e-4b40074e594e" />
+<img width="1170" height="1108" alt="tat_shap_analysis_xgboost" src="https://github.com/user-attachments/assets/604bd274-2196-4e02-a2f6-800e2f25330f" />
+<img width="1182" height="1108" alt="tat_shap_analysis_random_forest" src="https://github.com/user-attachments/assets/5ba46856-a1b6-4d72-b85f-a4bc3e4fe4e3" />
+<img width="1164" height="1108" alt="tat_shap_analysis_linear" src="https://github.com/user-attachments/assets/47aa0347-e596-4a04-9faa-f785d0fa1b9b" />
+
 
 **Bottleneck Analysis**: (More at console)
-<img width="600" height="600" alt="medication_prep_bottleneck_heatmap" src="https://github.com/user-attachments/assets/1f9ce5d8-ed89-49fe-b46c-2fdeea43d43f" />
-
+<img width="3342" height="2368" alt="medication_prep_bottleneck_heatmap" src="https://github.com/user-attachments/assets/eb869492-66dc-4a21-9d32-898b42474017" />
 
 ## 🎯 **Key Design Decisions**
 
