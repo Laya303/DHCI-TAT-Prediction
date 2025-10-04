@@ -245,7 +245,7 @@ class TestFactoryBasicCoverage:
         assert best_model is None
 
     def test_ensemble_feature_importance_skipping(self):
-        """Test that ensemble models skip feature importance while other models don't."""
+        """Test that ensemble models now support SHAP feature importance analysis."""
         import warnings
         
         # Suppress SHAP's internal numpy random seed warning
@@ -265,12 +265,13 @@ class TestFactoryBasicCoverage:
             stacking_result = orchestrator.train_model_with_optimization('stacking', splits, n_trials=2)
             stacking_metrics = orchestrator.training_results.get('stacking', {}).get('metrics', {})
         
-            # Should have skipped feature importance for ensemble
+            # Should now have feature importance available for ensemble models
             if 'feature_importance' in stacking_metrics:
                 importance_data = stacking_metrics['feature_importance']
-                # Check that ensemble model has minimal feature importance data
-                assert importance_data.get('feature_importance_available', True) == False, "Ensemble model should have feature_importance_available=False"
+                # Check that ensemble model now has SHAP analysis available
+                assert importance_data.get('shap_available', False) == True, "Ensemble model should now have shap_available=True"
                 assert importance_data.get('model_type') == 'ensemble', "Should be marked as ensemble model type"
+                assert importance_data.get('method') == 'shap_analysis', "Ensemble model should use shap_analysis method"
         
             # Test ridge model (should NOT skip feature importance)  
             ridge_result = orchestrator.train_model_with_optimization('ridge', splits, n_trials=2)

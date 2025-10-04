@@ -396,62 +396,29 @@ class TATTrainingOrchestrator:
         metrics = optimized_model.evaluate_healthcare_metrics(y_test, predictions)
 
         # Generate comprehensive feature importance analysis for clinical insights
-        # Skip feature importance for ensemble models to avoid complexity
-        if model_type != 'stacking':
-            try:
-                # Initialize feature importance analyzer with healthcare context
-                analyzer = FeatureImportanceAnalyzer(optimized_model.model, splits['X_train'])
-                importance_results = analyzer.analyze_importance(splits['X_test'])
+        try:
+            # Initialize feature importance analyzer with healthcare context
+            logger.info(f"Generating feature importance analysis for {model_type} model")
+            analyzer = FeatureImportanceAnalyzer(optimized_model.model, splits['X_train'])
+            importance_results = analyzer.analyze_importance(splits['X_test'])
 
-                # Integrate clinical insights into  Numerical Features
-                metrics.update({
-                    'feature_importance': importance_results,                      # Complete analysis
-                    'top_clinical_features': importance_results.get('top_features', [])[:10],  # Key factors
-                    'clinical_insights': importance_results.get('clinical_insights', [])       # Actionable insights
-                })
-                
-                logger.info(f"{model_type} feature importance analysis completed")
-                
-            except Exception as e:
-                logger.warning(f"Feature importance analysis failed for {model_type}: {e}")
-                # Provide fallback structure for consistent interface
-                metrics.update({
-                    'feature_importance': {'error': str(e)},    # Error documentation
-                    'top_clinical_features': [],                # Empty list fallback
-                    'clinical_insights': []                     # Empty insights fallback
-                })
-        else:
-            # Generate feature importance for ensemble models using meta-learner
-            try:
-                logger.info(f"Generating ensemble meta-learner feature importance for {model_type}")
-                from tat.analysis.feature_importance import FeatureImportanceAnalyzer
-                
-                # Create analyzer using the ensemble model for SHAP analysis
-                analyzer = FeatureImportanceAnalyzer(optimized_model.model, splits['X_train'])
-                importance_result = analyzer.get_basic_importance()
-                
-                # Generate clinical insights for ensemble model
-                clinical_insights = [
-                    f"Ensemble model combines {len(optimized_model.model.estimators_)} algorithms for robust predictions",
-                    "Meta-learner (Ridge) weights base model contributions for optimal TAT prediction",
-                    "Improved accuracy through algorithmic diversity and cross-validation"
-                ]
-                
-                metrics.update({
-                    'feature_importance': importance_result,
-                    'top_clinical_features': importance_result.get('top_features', [])[:10],
-                    'clinical_insights': clinical_insights
-                })
-                
-                logger.info(f"{model_type} ensemble feature importance analysis completed")
-                
-            except Exception as e:
-                logger.warning(f"Ensemble feature importance analysis failed for {model_type}: {e}")
-                metrics.update({
-                    'feature_importance': {'error': str(e)},
-                    'top_clinical_features': [],
-                    'clinical_insights': ['Ensemble model combines multiple algorithms for improved accuracy']
-                })
+            # Integrate clinical insights into metrics
+            metrics.update({
+                'feature_importance': importance_results,                      # Complete analysis
+                'top_clinical_features': importance_results.get('top_features', [])[:10],  # Key factors
+                'clinical_insights': importance_results.get('clinical_insights', [])       # Actionable insights
+            })
+            
+            logger.info(f"{model_type} feature importance analysis completed successfully")
+            
+        except Exception as e:
+            logger.warning(f"Feature importance analysis failed for {model_type}: {e}")
+            # Provide fallback structure for consistent interface
+            metrics.update({
+                'feature_importance': {'error': str(e)},    # Error documentation
+                'top_clinical_features': [],                # Empty list fallback
+                'clinical_insights': []                     # Empty insights fallback
+            })
 
         # Store comprehensive training results with healthcare metadata
         model_key = f"{model_type}"

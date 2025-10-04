@@ -345,12 +345,12 @@ class TestFeatureImportanceAnalyzer:
         mock_model = MockXGBoostModel(n_features=n_features)
         analyzer = FeatureImportanceAnalyzer(mock_model, healthcare_training_data)
         
-        # Should gracefully fall back to native importance extraction
+        # Should gracefully fall back to general SHAP explainer, not native importance
         results = analyzer.shap_summary(healthcare_test_data)
         
-        assert results['method'] == 'basic_feature_importance'
+        assert results['method'] == 'shap_analysis'
         assert results['model_type'] == 'xgboost'
-        assert results['feature_importance_available'] == True
+        assert results['shap_available'] == True
     
     def test_generate_clinical_insights_comprehensive(self, healthcare_training_data):
         """Test comprehensive clinical insight generation for pharmacy workflow optimization."""

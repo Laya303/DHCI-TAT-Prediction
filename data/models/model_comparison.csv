@@ -2,4 +2,4 @@ Configuration,Model,Scaling_Strategy,RMSE_minutes,MAE_minutes,Within_10min_%,Wit
 comprehensive_ensemble,stacking,mixed,13.512407079330163,10.809453030827827,53.66,97.5,71.25,84.375,Maximum accuracy and robustness for critical healthcare operations
 tree_based_models,xgboost,tree,13.513629955717972,10.806745529174805,53.595000000000006,97.485,71.16,84.32249999999999,Complex workflow pattern recognition and non-linear bottleneck identification
 linear_interpretable,ridge,linear,13.674813205055269,10.936862263706779,53.22,97.315,70.69,84.0025,Healthcare stakeholder communication through transparent linear relationships
-tree_based_models,random_forest,tree,13.775267091971907,11.01259681740221,52.87500000000001,97.195,70.435,83.815,Complex workflow pattern recognition and non-linear bottleneck identification
+tree_based_models,random_forest,tree,13.775267091971905,11.012596817402208,52.87500000000001,97.195,70.435,83.815,Complex workflow pattern recognition and non-linear bottleneck identification
