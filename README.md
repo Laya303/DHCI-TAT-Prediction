@@ -24,6 +24,8 @@ Also at console
 <img width="1170" height="1108" alt="tat_shap_analysis_xgboost" src="https://github.com/user-attachments/assets/604bd274-2196-4e02-a2f6-800e2f25330f" />
 <img width="1182" height="1108" alt="tat_shap_analysis_random_forest" src="https://github.com/user-attachments/assets/5ba46856-a1b6-4d72-b85f-a4bc3e4fe4e3" />
 <img width="1164" height="1108" alt="tat_shap_analysis_linear" src="https://github.com/user-attachments/assets/47aa0347-e596-4a04-9faa-f785d0fa1b9b" />
+<img width="1168" height="1108" alt="tat_shap_analysis_ensemble" src="https://github.com/user-attachments/assets/9f49c844-12b9-41b4-ab30-24d900c542e3" />
+
 
 
 **Bottleneck Analysis**: (More at console)
