@@ -11,13 +11,13 @@ This system analyzes medication preparation workflows in healthcare settings to 
 
 **Dataset**: 100,000 medication orders (Jan-July 2025) with ~10% missing timestamps, including patient demographics, clinical data, lab values, and operational metrics.
 
-## 🎯 **Key Design Innovations**
+## 🎯 **Key Design Decisions**
 
 ### **1. 🤖 Multi-Model Ensemble Architecture**
 - **Ridge Regression**: Interpretable linear baseline with clinical coefficient insights
 - **XGBoost**: Captures complex non-linear interactions in workflow patterns  
 - **Random Forest**: Robust ensemble with feature importance ranking
-- **Stacking Meta-Learner**: Combines all models using cross-validated predictions
+- **Stacking Meta-Learner**: Meta-learning stacking combining Ridge, XGBoost, and Random Forest
 
 ### **2. ⏰ Advanced Missing Data Imputation Strategy**
 **Sequential Forward-Fill with Operational Context**
@@ -59,20 +59,6 @@ This system analyzes medication preparation workflows in healthcare settings to 
 
 **Interactive EDA Report**: [📊 Comprehensive Data Analysis](htmlcov_full/index.html)
 
-**Key Figures & Insights**:
-- **Figure 1**: Step-wise delay distribution showing prep-to-validation as primary bottleneck
-- **Figure 2**: SHAP feature importance revealing queue length as top predictor  
-- **Figure 3**: Bottleneck analysis by shift showing evening delays 40% higher
-- **Figure 4**: Model calibration plots demonstrating prediction reliability
-- **Figure 5**: Operational efficiency heatmaps by floor and time of day
-
-### **🎯 Major Findings**
-- **Primary Bottleneck**: Preparation-to-second-validation step (avg: 18.3 min)
-- **Top Predictors**: Queue length, floor occupancy, treatment complexity, lab abnormalities
-- **Operational Insights**: Evening shift 40% slower, Floor 3 most efficient
-- **Clinical Impact**: High-severity patients average 23% longer TAT
-- **Staffing Effect**: BCOP pharmacists reduce TAT by 12% vs. RPh credentials
-
 ## 🛠 **Technical Implementation**
 
 ### **Feature Engineering (77-dimensional feature space)**
@@ -102,7 +88,7 @@ src/tat/
 
 ## � **Comprehensive Testing Suite**
 
-### **Test Coverage: 900+ Tests | 78% Coverage**
+### **Test Coverage: 900+ Tests | 80% Coverage**
 ```
 tests/
 ├── unit/ (600+ tests)           # Individual component testing
@@ -118,7 +104,6 @@ tests/
 - **Performance Gates**: RMSE < 15 minutes, inference < 50ms
 - **Data Validation**: Schema compliance, temporal causality checks
 - **Model Reliability**: Cross-validation, calibration testing
-- **Clinical Validation**: Domain expert review of predictions
 
 ## � **Quick Start**
 
@@ -156,14 +141,6 @@ python -m pytest tests/integration/          # End-to-end pipeline tests
 ```
 
 ---
-
-## 💡 **Key Innovations Summary**
-
-1. **🤖 Ensemble Architecture**: Meta-learning stacking combining Ridge, XGBoost, and Random Forest
-2. **⏰ Smart Imputation**: Sequential forward-fill with operational context for missing timestamps  
-3. **🔍 SHAP Explainability**: Clinical feature importance with interaction analysis
-4. **📊 Bottleneck Detection**: Statistical workflow analysis with actionable recommendations
-5. **⚡ Production Scaling**: Modular design with automated ML pipeline and monitoring
 
 **Built for healthcare environments with focus on interpretability, reliability, and clinical utility.**
 
