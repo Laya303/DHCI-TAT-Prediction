@@ -11,6 +11,15 @@ This system analyzes medication preparation workflows in healthcare settings to 
 
 **Dataset**: 100,000 medication orders (Jan-July 2025) with ~10% missing timestamps, including patient demographics, clinical data, lab values, and operational metrics.
 
+### **📈 Analysis Reports & Visualizations**
+<img width="1785" height="1182" alt="tat_shap_analysis_xgboost" src="https://github.com/user-attachments/assets/80378d4c-62b6-4712-802e-7586dd8395ee" />
+<img width="1182" height="1108" alt="tat_shap_analysis_random_forest" src="https://github.com/user-attachments/assets/2f488893-e296-4c57-875a-d5efa5aa7e9f" />
+<img width="1126" height="508" alt="tat_shap_analysis_linear" src="https://github.com/user-attachments/assets/af746d7f-a57f-4a34-9493-bcd14299410f" />
+<img width="3342" height="2368" alt="medication_prep_bottleneck_heatmap" src="https://github.com/user-attachments/assets/671fa3c7-8305-4877-83d7-83afef7eff11" />
+<img width="3883" height="2487" alt="delays" src="https://github.com/user-attachments/assets/944fc530-daa0-4143-a3c6-b286bd2586a5" />
+
+**Interactive EDA Report**: 📊 Comprehensive Data Analysis(reports/eda/summary.html)
+
 ## 🎯 **Key Design Decisions**
 
 ### **1. 🤖 Multi-Model Ensemble Architecture**
@@ -54,11 +63,6 @@ This system analyzes medication preparation workflows in healthcare settings to 
 | XGBoost | 13.51 | 10.65 | 0.851 | 91.7% |
 | Random Forest | 13.78 | 10.91 | 0.844 | 88.9% |
 | **Stacking Ensemble** | **13.51** | **10.58** | **0.852** | **92.3%** |
-
-### **📈 Analysis Reports & Visualizations**
-
-**Interactive EDA Report**: 📊 Comprehensive Data Analysis
-<foreignObject>(reports/eda/summary.html)</foreignObject>
 
 ## 🛠 **Technical Implementation**
 
