@@ -1,0 +1,255 @@
+{
+  "ridge_linear_interpretable": {
+    "top_features": [
+      {
+        "feature": "premed_required",
+        "mean_abs_shap": 0.0805974967170263,
+        "shap_importance_pct": 15.543485852763798
+      },
+      {
+        "feature": "severity",
+        "mean_abs_shap": 0.05722379953078342,
+        "shap_importance_pct": 11.035793351882417
+      },
+      {
+        "feature": "pharmacists_on_duty",
+        "mean_abs_shap": 0.039934081164641096,
+        "shap_importance_pct": 7.701415687946465
+      },
+      {
+        "feature": "queue_length_at_order",
+        "mean_abs_shap": 0.03874321225463729,
+        "shap_importance_pct": 7.47175279754518
+      },
+      {
+        "feature": "pharmacist_credential",
+        "mean_abs_shap": 0.037064720119774325,
+        "shap_importance_pct": 7.148050203607094
+      },
+      {
+        "feature": "stat_order",
+        "mean_abs_shap": 0.03268624486256105,
+        "shap_importance_pct": 6.3036472011650355
+      },
+      {
+        "feature": "patient_readiness_score",
+        "mean_abs_shap": 0.030044525470855742,
+        "shap_importance_pct": 5.794183140065122
+      },
+      {
+        "feature": "has_abnormal_labs",
+        "mean_abs_shap": 0.02729180596073234,
+        "shap_importance_pct": 5.263312349965369
+      },
+      {
+        "feature": "shift_Night",
+        "mean_abs_shap": 0.024725794025460567,
+        "shap_importance_pct": 4.768448714759015
+      },
+      {
+        "feature": "floor_occupancy_pct",
+        "mean_abs_shap": 0.02403514726921165,
+        "shap_importance_pct": 4.635255271757894
+      }
+    ],
+    "clinical_insights": [
+      "Critical operational factor: premed_required contributes 15.5% to TAT prediction accuracy",
+      "Patient acuity workflow impact: severity drives 11.0% of TAT differences",
+      "Pharmacist staffing optimization: pharmacists_on_duty represents 7.7% of TAT prediction drivers",
+      "Queue management optimization critical: queue_length_at_order accounts for 7.5% of TAT variation",
+      "Pharmacist staffing optimization: pharmacist_credential represents 7.1% of TAT prediction drivers",
+      "Top 5 operational factors explain 48.9% of TAT variation - prioritize these areas for maximum workflow improvement impact"
+    ],
+    "workflow_relevance": {},
+    "has_features": true
+  },
+  "xgboost_tree_based_models": {
+    "top_features": [
+      {
+        "feature": "premed_required",
+        "mean_abs_shap": 0.06493208557367325,
+        "shap_importance_pct": 16.128173828125
+      },
+      {
+        "feature": "severity",
+        "mean_abs_shap": 0.0437358133494854,
+        "shap_importance_pct": 10.86333179473877
+      },
+      {
+        "feature": "pharmacist_credential",
+        "mean_abs_shap": 0.03419160097837448,
+        "shap_importance_pct": 8.49268913269043
+      },
+      {
+        "feature": "pharmacists_on_duty",
+        "mean_abs_shap": 0.034188028424978256,
+        "shap_importance_pct": 8.491802215576172
+      },
+      {
+        "feature": "shift_Night",
+        "mean_abs_shap": 0.032480306923389435,
+        "shap_importance_pct": 8.06762981414795
+      },
+      {
+        "feature": "stat_order",
+        "mean_abs_shap": 0.03213080018758774,
+        "shap_importance_pct": 7.980817794799805
+      },
+      {
+        "feature": "patient_readiness_score",
+        "mean_abs_shap": 0.030139343813061714,
+        "shap_importance_pct": 7.48616886138916
+      },
+      {
+        "feature": "queue_length_at_order_log",
+        "mean_abs_shap": 0.02353864349424839,
+        "shap_importance_pct": 5.846652030944824
+      },
+      {
+        "feature": "lab_abnormal_count",
+        "mean_abs_shap": 0.01993868499994278,
+        "shap_importance_pct": 4.952475547790527
+      },
+      {
+        "feature": "floor_occupancy_pct",
+        "mean_abs_shap": 0.011761974543333054,
+        "shap_importance_pct": 2.9215011596679688
+      }
+    ],
+    "clinical_insights": [
+      "Critical operational factor: premed_required contributes 16.1% to TAT prediction accuracy",
+      "Patient acuity workflow impact: severity drives 10.9% of TAT differences",
+      "Pharmacist staffing optimization: pharmacist_credential represents 8.5% of TAT prediction drivers",
+      "Pharmacist staffing optimization: pharmacists_on_duty represents 8.5% of TAT prediction drivers",
+      "Temporal workflow patterns: shift_Night affects 8.1% of TAT variation",
+      "Top 5 operational factors explain 52.0% of TAT variation - prioritize these areas for maximum workflow improvement impact"
+    ],
+    "workflow_relevance": {},
+    "has_features": true
+  },
+  "random_forest_tree_based_models": {
+    "top_features": [
+      {
+        "feature": "premed_required",
+        "mean_abs_shap": 0.06267269594136232,
+        "shap_importance_pct": 17.607716606623125
+      },
+      {
+        "feature": "pharmacist_credential",
+        "mean_abs_shap": 0.03464746637270088,
+        "shap_importance_pct": 9.734107650304482
+      },
+      {
+        "feature": "shift_Night",
+        "mean_abs_shap": 0.0320564164889859,
+        "shap_importance_pct": 9.006159516259595
+      },
+      {
+        "feature": "stat_order",
+        "mean_abs_shap": 0.027875076864622938,
+        "shap_importance_pct": 7.831423978941865
+      },
+      {
+        "feature": "severity_x_occupancy",
+        "mean_abs_shap": 0.024954056218603773,
+        "shap_importance_pct": 7.0107714928046505
+      },
+      {
+        "feature": "patient_readiness_score",
+        "mean_abs_shap": 0.02259610460481748,
+        "shap_importance_pct": 6.348311658197827
+      },
+      {
+        "feature": "severity",
+        "mean_abs_shap": 0.02236426372564158,
+        "shap_importance_pct": 6.28317661913426
+      },
+      {
+        "feature": "pharmacists_on_duty",
+        "mean_abs_shap": 0.021945672833923572,
+        "shap_importance_pct": 6.165574692413568
+      },
+      {
+        "feature": "queue_length_at_order_log",
+        "mean_abs_shap": 0.019881593729910437,
+        "shap_importance_pct": 5.585677507982253
+      },
+      {
+        "feature": "complex_case",
+        "mean_abs_shap": 0.012122514250006461,
+        "shap_importance_pct": 3.405786080649405
+      }
+    ],
+    "clinical_insights": [
+      "Critical operational factor: premed_required contributes 17.6% to TAT prediction accuracy",
+      "Pharmacist staffing optimization: pharmacist_credential represents 9.7% of TAT prediction drivers",
+      "Temporal workflow patterns: shift_Night affects 9.0% of TAT variation",
+      "Critical operational factor: stat_order contributes 7.8% to TAT prediction accuracy",
+      "Patient acuity workflow impact: severity_x_occupancy drives 7.0% of TAT differences",
+      "Top 5 operational factors explain 51.2% of TAT variation - prioritize these areas for maximum workflow improvement impact"
+    ],
+    "workflow_relevance": {},
+    "has_features": true
+  },
+  "stacking_comprehensive_ensemble": {
+    "top_features": [
+      {
+        "feature": "premed_required",
+        "mean_abs_shap": 0.07003947583380991,
+        "shap_importance_pct": 15.885212112861941
+      },
+      {
+        "feature": "severity",
+        "mean_abs_shap": 0.05269411554439576,
+        "shap_importance_pct": 11.951220259108682
+      },
+      {
+        "feature": "shift_Night",
+        "mean_abs_shap": 0.042134641754488396,
+        "shap_importance_pct": 9.556292556467136
+      },
+      {
+        "feature": "pharmacists_on_duty",
+        "mean_abs_shap": 0.038210462038948914,
+        "shap_importance_pct": 8.666274086051292
+      },
+      {
+        "feature": "stat_order",
+        "mean_abs_shap": 0.03641553764974636,
+        "shap_importance_pct": 8.259178597263126
+      },
+      {
+        "feature": "queue_length_at_order",
+        "mean_abs_shap": 0.035334403152644155,
+        "shap_importance_pct": 8.013973295473725
+      },
+      {
+        "feature": "pharmacist_credential",
+        "mean_abs_shap": 0.03393964377579888,
+        "shap_importance_pct": 7.697636711228545
+      },
+      {
+        "feature": "patient_readiness_score",
+        "mean_abs_shap": 0.02899151088296199,
+        "shap_importance_pct": 6.575381873801566
+      },
+      {
+        "feature": "lab_abnormal_count",
+        "mean_abs_shap": 0.020650603165926845,
+        "shap_importance_pct": 4.683633160357448
+      },
+      {
+        "feature": "floor_occupancy_pct",
+        "mean_abs_shap": 0.017163862927657016,
+        "shap_importance_pct": 3.892827580961179
+      }
+    ],
+    "clinical_insights": [
+      "Ensemble model combines 3 algorithms for robust predictions",
+      "Meta-learner (Ridge) weights base model contributions for optimal TAT prediction",
+      "Improved accuracy through algorithmic diversity and cross-validation"
+    ],
+    "workflow_relevance": {},
+    "has_features": true
+  }
+}

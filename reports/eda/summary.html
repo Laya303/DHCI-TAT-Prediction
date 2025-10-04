@@ -1,0 +1,829 @@
+
+<meta charset="utf-8">
+<style>
+body { 
+    font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Arial, sans-serif; 
+    padding: 24px; 
+    background: #fafbfc;
+    color: #1f2937;
+    line-height: 1.5;
+}
+
+h1 { 
+    margin: 0 0 12px 0; 
+    text-align: center; 
+    color: #1e40af;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+h2 { 
+    margin: 32px 0 16px 0; 
+    text-align: center; 
+    color: #1e40af;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.meta { 
+    color: #4b5563; 
+    margin: 12px 0 24px; 
+    text-align: center; 
+    font-size: 1.1em;
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.section { 
+    padding: 16px 0 8px; 
+    margin: 20px 0;
+}
+
+.section h2::after {
+    content: "";
+    display: block;
+    width: 160px;
+    height: 4px;
+    margin: 12px auto 0;
+    background: linear-gradient(90deg, #e5e7eb, #3b82f6, #e5e7eb);
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+.tablewrap { 
+    overflow-x: auto; 
+    padding: 16px 0; 
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 16px 0;
+}
+
+.tablewrap > table { margin: 0 auto; }
+
+table.dataframe { 
+    border-collapse: collapse; 
+    font-size: 14px; 
+    font-variant-numeric: tabular-nums;
+}
+
+table.dataframe.compact { 
+    width: max-content; 
+    table-layout: auto; 
+    margin: 0 auto; 
+}
+
+table.dataframe.compact th,
+table.dataframe.compact td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 14px;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.dataframe.compact th { 
+    background: #f8fafc; 
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #d1d5db;
+}
+
+table.dataframe.compact tbody tr:nth-child(even) { background: #fafbfc; }
+table.dataframe.compact tbody tr:hover { 
+    background: #eff6ff; 
+    transition: background-color 0.2s ease;
+}
+
+/* Healthcare-specific table styling */
+table.dataframe.time th { background: #fef3c7; color: #92400e; }
+table.dataframe.categorical th { background: #dbeafe; color: #1e40af; }
+table.dataframe.numeric th { background: #dcfce7; color: #166534; }
+table.dataframe.missing th { background: #fee2e2; color: #991b1b; }
+
+table.dataframe.corr td, table.dataframe.corr th { min-width: 80px; font-size: 12px; }
+table.dataframe.corr-pairs td, table.dataframe.corr-pairs th { min-width: 120px; }
+
+/* TAT distribution histogram styling */
+.vhist { 
+    display: flex; 
+    align-items: flex-end; 
+    gap: 2px; 
+    width: 220px; 
+    height: 70px;
+    background: #ffffff; 
+    border-radius: 6px; 
+    padding: 8px; 
+    box-sizing: border-box;
+    margin: 0 auto;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.vhist.empty { 
+    background: repeating-linear-gradient(45deg, #f9fafb, #f9fafb 8px, #f3f4f6 8px, #f3f4f6 16px);
+    border: 1px dashed #d1d5db;
+}
+
+.vhist .bar { 
+    flex: 1 1 auto; 
+    background: linear-gradient(to top, #3b82f6, #60a5fa);
+    border-top-left-radius: 2px; 
+    border-top-right-radius: 2px;
+    transition: opacity 0.2s ease;
+}
+
+.vhist .bar:hover { opacity: 0.8; }
+
+/* Healthcare data quality indicators */
+.miss-good { color: #059669; font-weight: 600; }
+.miss-bad { color: #dc2626; font-weight: 600; }
+.miss-warning { color: #d97706; font-weight: 600; }
+
+/* TAT correlation highlighting */
+.corr-target { 
+    background: #fef3c7 !important; 
+    font-weight: 700; 
+    border-radius: 4px;
+    color: #92400e;
+}
+
+.corr-target-cell { 
+    background: #fffbeb !important; 
+    font-weight: 600; 
+    color: #92400e;
+}
+
+/* Professional healthcare report styling */
+.insight-box {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 16px;
+    margin: 20px 0;
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+    color: #1e40af;
+}
+</style>
+<h1>Pharmacy TAT Analysis Report</h1><div class='meta'><strong>📊 Dataset Overview:</strong> 100,000 medication orders analyzed &nbsp;•&nbsp; <strong>📈 Total Features:</strong> 36 variables &nbsp;•&nbsp; <strong>⏰ Workflow Steps:</strong> 6 timestamps &nbsp;•&nbsp; <strong>🏥 Operational Factors:</strong> 16 categories &nbsp;•&nbsp; <strong>📋  Numerical Features:</strong> 14 measures</div><div class='section'><h2>⏱️ Medication Preparation Workflow Timeline (6 steps)</h2></div><div class="insight-box">Sequential timestamps from physician order to patient administration. Missing data indicates workflow tracking gaps requiring data quality improvement.</div><div class="tablewrap"><table border="1" class="dataframe compact time">
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>type</th>
+      <th>n_nonnull</th>
+      <th>miss%</th>
+      <th>sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>doctor_order_time</td>
+      <td>datetime64[ns]</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>2025-04-15 06:27:00</td>
+    </tr>
+    <tr>
+      <td>nurse_validation_time</td>
+      <td>object</td>
+      <td>89988</td>
+      <td><span class="miss-warning">10.0%</span></td>
+      <td>39:55.8</td>
+    </tr>
+    <tr>
+      <td>prep_complete_time</td>
+      <td>object</td>
+      <td>90009</td>
+      <td><span class="miss-warning">10.0%</span></td>
+      <td>43:31.0</td>
+    </tr>
+    <tr>
+      <td>second_validation_time</td>
+      <td>object</td>
+      <td>89847</td>
+      <td><span class="miss-warning">10.2%</span></td>
+      <td>53:55.1</td>
+    </tr>
+    <tr>
+      <td>floor_dispatch_time</td>
+      <td>object</td>
+      <td>90119</td>
+      <td><span class="miss-warning">9.9%</span></td>
+      <td>03:07.7</td>
+    </tr>
+    <tr>
+      <td>patient_infusion_time</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>14:15.0</td>
+    </tr>
+  </tbody>
+</table></div><div class='section'><h2>🏥 Operational Context & Staffing Factors (16 factors)</h2></div><div class="insight-box">Shift patterns, staff credentials, departments, and operational conditions affecting medication preparation TAT. Focus on dominant categories for workflow optimization.</div><div class="tablewrap"><table border="1" class="dataframe compact categorical">
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>type</th>
+      <th>n_nonnull</th>
+      <th>miss%</th>
+      <th>nunique</th>
+      <th>sample</th>
+      <th>top_values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TAT_over_60</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>2</td>
+      <td>0</td>
+      <td>1(59%) • 0(41%)</td>
+    </tr>
+    <tr>
+      <td>sex</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>2</td>
+      <td>F</td>
+      <td>F(52%) • M(48%)</td>
+    </tr>
+    <tr>
+      <td>race_ethnicity</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>5</td>
+      <td>Black</td>
+      <td>White(56%) • Hispanic/Latino(16%) • Asian(12%) • Black(12%) • Other/Unknown(4%)</td>
+    </tr>
+    <tr>
+      <td>insurance_type</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>4</td>
+      <td>Medicare</td>
+      <td>Commercial(55%) • Medicare(30%) • Medicaid(13%) • Self-pay(2%)</td>
+    </tr>
+    <tr>
+      <td>diagnosis_type</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>4</td>
+      <td>SolidTumor</td>
+      <td>SolidTumor(58%) • Hematologic(24%) • Autoimmune(12%) • Other(6%)</td>
+    </tr>
+    <tr>
+      <td>severity</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>3</td>
+      <td>Low</td>
+      <td>Low(45%) • Medium(38%) • High(17%)</td>
+    </tr>
+    <tr>
+      <td>treatment_type</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>4</td>
+      <td>TargetedTherapy</td>
+      <td>Chemotherapy(55%) • Immunotherapy(20%) • TargetedTherapy(15%) • SupportiveCare(10%)</td>
+    </tr>
+    <tr>
+      <td>patient_readiness_score</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>3</td>
+      <td>3</td>
+      <td>2(35%) • 3(35%) • 1(30%)</td>
+    </tr>
+    <tr>
+      <td>premed_required</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>2</td>
+      <td>0</td>
+      <td>0(58%) • 1(42%)</td>
+    </tr>
+    <tr>
+      <td>stat_order</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>2</td>
+      <td>0</td>
+      <td>0(86%) • 1(14%)</td>
+    </tr>
+    <tr>
+      <td>floor</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>3</td>
+      <td>1</td>
+      <td>1(40%) • 2(35%) • 3(25%)</td>
+    </tr>
+    <tr>
+      <td>shift</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>3</td>
+      <td>Night</td>
+      <td>Day(33%) • Evening(33%) • Night(33%)</td>
+    </tr>
+    <tr>
+      <td>nurse_credential</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>4</td>
+      <td>BSN</td>
+      <td>RN(45%) • BSN(35%) • MSN(15%) • NP(5%)</td>
+    </tr>
+    <tr>
+      <td>pharmacist_credential</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>3</td>
+      <td>PharmD</td>
+      <td>PharmD(60%) • RPh(25%) • BCOP(15%)</td>
+    </tr>
+    <tr>
+      <td>ordering_physician</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>20</td>
+      <td>A. Patel</td>
+      <td>E. Garcia(5%) • G. Lee(5%) • L. Kim(5%) • D. Nguyen(5%) • S. Allen(5%) • R. Hall(5%) • M. Rodriguez(5%) • N. Brown(5%)</td>
+    </tr>
+    <tr>
+      <td>ordering_department</td>
+      <td>object</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>5</td>
+      <td>Hematology</td>
+      <td>MedicalOncology(55%) • Hematology(20%) • StemCellTransplant(10%) • ImmunotherapyClinic(10%) • RadiationOncology(5%)</td>
+    </tr>
+  </tbody>
+</table></div><div class='section'><h2>📈 TAT  Numerical Features & Clinical Indicators (14 metrics)</h2></div><div class="insight-box">Turnaround times, queue metrics, occupancy rates, and laboratory values. Distribution charts show data patterns for bottleneck identification.</div><div class="tablewrap"><table border="1" class="dataframe compact numeric">
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>type</th>
+      <th>n_nonnull</th>
+      <th>miss%</th>
+      <th>nunique</th>
+      <th>sample</th>
+      <th>min</th>
+      <th>p50</th>
+      <th>max</th>
+      <th>distribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>order_id</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>100000</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>50000.50</td>
+      <td>100000.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:66.0px" title="(-98.999, 6667.6] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(6667.6, 13334.2] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(13334.2, 20000.8] — 6,666 orders"></div><div class="bar" style="height:66.0px" title="(20000.8, 26667.4] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(26667.4, 33334.0] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(33334.0, 40000.6] — 6,666 orders"></div><div class="bar" style="height:66.0px" title="(40000.6, 46667.2] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(46667.2, 53333.8] — 6,666 orders"></div><div class="bar" style="height:66.0px" title="(53333.8, 60000.4] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(60000.4, 66667.0] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(66667.0, 73333.6] — 6,666 orders"></div><div class="bar" style="height:66.0px" title="(73333.6, 80000.2] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(80000.2, 86666.8] — 6,666 orders"></div><div class="bar" style="height:66.0px" title="(86666.8, 93333.4] — 6,667 orders"></div><div class="bar" style="height:66.0px" title="(93333.4, 100000.0] — 6,667 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>patient_id</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>94733</td>
+      <td>354992</td>
+      <td>100002.0</td>
+      <td>550287.50</td>
+      <td>999989.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:64.8px" title="(99102.013, 160001.133] — 6,722 orders"></div><div class="bar" style="height:64.1px" title="(160001.133, 220000.267] — 6,643 orders"></div><div class="bar" style="height:64.1px" title="(220000.267, 279999.4] — 6,653 orders"></div><div class="bar" style="height:64.0px" title="(279999.4, 339998.533] — 6,634 orders"></div><div class="bar" style="height:64.5px" title="(339998.533, 399997.667] — 6,687 orders"></div><div class="bar" style="height:63.2px" title="(399997.667, 459996.8] — 6,555 orders"></div><div class="bar" style="height:64.7px" title="(459996.8, 519995.933] — 6,713 orders"></div><div class="bar" style="height:65.7px" title="(519995.933, 579995.067] — 6,810 orders"></div><div class="bar" style="height:66.0px" title="(579995.067, 639994.2] — 6,845 orders"></div><div class="bar" style="height:63.2px" title="(639994.2, 699993.333] — 6,556 orders"></div><div class="bar" style="height:63.9px" title="(699993.333, 759992.467] — 6,624 orders"></div><div class="bar" style="height:65.0px" title="(759992.467, 819991.6] — 6,743 orders"></div><div class="bar" style="height:65.2px" title="(819991.6, 879990.733] — 6,759 orders"></div><div class="bar" style="height:62.4px" title="(879990.733, 939989.867] — 6,473 orders"></div><div class="bar" style="height:63.5px" title="(939989.867, 999989.0] — 6,583 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>TAT_minutes</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>129</td>
+      <td>46</td>
+      <td>6.0</td>
+      <td>64.00</td>
+      <td>152.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:3.0px" title="(5.854, 15.733] — 21 orders"></div><div class="bar" style="height:3.0px" title="(15.733, 25.467] — 555 orders"></div><div class="bar" style="height:8.5px" title="(25.467, 35.2] — 2,949 orders"></div><div class="bar" style="height:22.0px" title="(35.2, 44.933] — 7,616 orders"></div><div class="bar" style="height:47.6px" title="(44.933, 54.667] — 16,459 orders"></div><div class="bar" style="height:66.0px" title="(54.667, 64.4] — 22,825 orders"></div><div class="bar" style="height:65.1px" title="(64.4, 74.133] — 22,510 orders"></div><div class="bar" style="height:41.8px" title="(74.133, 83.867] — 14,461 orders"></div><div class="bar" style="height:24.1px" title="(83.867, 93.6] — 8,324 orders"></div><div class="bar" style="height:9.0px" title="(93.6, 103.333] — 3,122 orders"></div><div class="bar" style="height:3.0px" title="(103.333, 113.067] — 929 orders"></div><div class="bar" style="height:3.0px" title="(113.067, 122.8] — 188 orders"></div><div class="bar" style="height:3.0px" title="(122.8, 132.533] — 32 orders"></div><div class="bar" style="height:3.0px" title="(132.533, 142.267] — 7 orders"></div><div class="bar" style="height:3.0px" title="(142.267, 152.0] — 2 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>age</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>72</td>
+      <td>18</td>
+      <td>18.0</td>
+      <td>53.00</td>
+      <td>89.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:64.1px" title="(17.929, 22.733] — 6,925 orders"></div><div class="bar" style="height:64.0px" title="(22.733, 27.467] — 6,914 orders"></div><div class="bar" style="height:66.0px" title="(27.467, 32.2] — 7,129 orders"></div><div class="bar" style="height:51.9px" title="(32.2, 36.933] — 5,611 orders"></div><div class="bar" style="height:64.8px" title="(36.933, 41.667] — 7,000 orders"></div><div class="bar" style="height:63.9px" title="(41.667, 46.4] — 6,901 orders"></div><div class="bar" style="height:63.8px" title="(46.4, 51.133] — 6,896 orders"></div><div class="bar" style="height:52.6px" title="(51.133, 55.867] — 5,677 orders"></div><div class="bar" style="height:64.5px" title="(55.867, 60.6] — 6,962 orders"></div><div class="bar" style="height:63.9px" title="(60.6, 65.333] — 6,897 orders"></div><div class="bar" style="height:64.9px" title="(65.333, 70.067] — 7,009 orders"></div><div class="bar" style="height:50.5px" title="(70.067, 74.8] — 5,450 orders"></div><div class="bar" style="height:63.7px" title="(74.8, 79.533] — 6,883 orders"></div><div class="bar" style="height:64.2px" title="(79.533, 84.267] — 6,937 orders"></div><div class="bar" style="height:63.0px" title="(84.267, 89.0] — 6,809 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>floor_occupancy_pct</td>
+      <td>float64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>901</td>
+      <td>59.3</td>
+      <td>10.0</td>
+      <td>69.00</td>
+      <td>100.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:3.0px" title="(9.91, 16.0] — 429 orders"></div><div class="bar" style="height:3.0px" title="(16.0, 22.0] — 644 orders"></div><div class="bar" style="height:6.2px" title="(22.0, 28.0] — 1,354 orders"></div><div class="bar" style="height:11.1px" title="(28.0, 34.0] — 2,403 orders"></div><div class="bar" style="height:17.8px" title="(34.0, 40.0] — 3,857 orders"></div><div class="bar" style="height:24.1px" title="(40.0, 46.0] — 5,226 orders"></div><div class="bar" style="height:31.0px" title="(46.0, 52.0] — 6,717 orders"></div><div class="bar" style="height:39.5px" title="(52.0, 58.0] — 8,553 orders"></div><div class="bar" style="height:47.9px" title="(58.0, 64.0] — 10,381 orders"></div><div class="bar" style="height:58.9px" title="(64.0, 70.0] — 12,758 orders"></div><div class="bar" style="height:66.0px" title="(70.0, 76.0] — 14,305 orders"></div><div class="bar" style="height:62.5px" title="(76.0, 82.0] — 13,548 orders"></div><div class="bar" style="height:47.5px" title="(82.0, 88.0] — 10,285 orders"></div><div class="bar" style="height:27.9px" title="(88.0, 94.0] — 6,038 orders"></div><div class="bar" style="height:16.2px" title="(94.0, 100.0] — 3,502 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>queue_length_at_order</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>18</td>
+      <td>3</td>
+      <td>0.0</td>
+      <td>3.00</td>
+      <td>17.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:66.0px" title="(-0.017, 1.133] — 22,123 orders"></div><div class="bar" style="height:42.2px" title="(1.133, 2.267] — 14,159 orders"></div><div class="bar" style="height:44.7px" title="(2.267, 3.4] — 14,999 orders"></div><div class="bar" style="height:41.9px" title="(3.4, 4.533] — 14,032 orders"></div><div class="bar" style="height:34.7px" title="(4.533, 5.667] — 11,617 orders"></div><div class="bar" style="height:26.5px" title="(5.667, 6.8] — 8,872 orders"></div><div class="bar" style="height:17.7px" title="(6.8, 7.933] — 5,926 orders"></div><div class="bar" style="height:17.6px" title="(7.933, 9.067] — 5,912 orders"></div><div class="bar" style="height:3.6px" title="(9.067, 10.2] — 1,194 orders"></div><div class="bar" style="height:3.0px" title="(10.2, 11.333] — 634 orders"></div><div class="bar" style="height:3.0px" title="(11.333, 12.467] — 312 orders"></div><div class="bar" style="height:3.0px" title="(12.467, 13.6] — 121 orders"></div><div class="bar" style="height:3.0px" title="(13.6, 14.733] — 56 orders"></div><div class="bar" style="height:3.0px" title="(14.733, 15.867] — 32 orders"></div><div class="bar" style="height:3.0px" title="(15.867, 17.0] — 11 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>nurse_employment_years</td>
+      <td>float64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>332</td>
+      <td>3.2</td>
+      <td>0.0</td>
+      <td>5.10</td>
+      <td>40.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:47.1px" title="(-0.04, 2.667] — 22,096 orders"></div><div class="bar" style="height:66.0px" title="(2.667, 5.333] — 30,933 orders"></div><div class="bar" style="height:46.0px" title="(5.333, 8.0] — 21,540 orders"></div><div class="bar" style="height:26.2px" title="(8.0, 10.667] — 12,284 orders"></div><div class="bar" style="height:14.2px" title="(10.667, 13.333] — 6,664 orders"></div><div class="bar" style="height:7.3px" title="(13.333, 16.0] — 3,415 orders"></div><div class="bar" style="height:3.5px" title="(16.0, 18.667] — 1,628 orders"></div><div class="bar" style="height:3.0px" title="(18.667, 21.333] — 752 orders"></div><div class="bar" style="height:3.0px" title="(21.333, 24.0] — 384 orders"></div><div class="bar" style="height:3.0px" title="(24.0, 26.667] — 170 orders"></div><div class="bar" style="height:3.0px" title="(26.667, 29.333] — 65 orders"></div><div class="bar" style="height:3.0px" title="(29.333, 32.0] — 40 orders"></div><div class="bar" style="height:3.0px" title="(32.0, 34.667] — 15 orders"></div><div class="bar" style="height:3.0px" title="(34.667, 37.333] — 10 orders"></div><div class="bar" style="height:3.0px" title="(37.333, 40.0] — 4 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>pharmacist_employment_years</td>
+      <td>float64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>395</td>
+      <td>1.5</td>
+      <td>0.0</td>
+      <td>6.70</td>
+      <td>40.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:37.6px" title="(-0.04, 2.667] — 13,978 orders"></div><div class="bar" style="height:66.0px" title="(2.667, 5.333] — 24,509 orders"></div><div class="bar" style="height:56.9px" title="(5.333, 8.0] — 21,122 orders"></div><div class="bar" style="height:39.6px" title="(8.0, 10.667] — 14,691 orders"></div><div class="bar" style="height:28.0px" title="(10.667, 13.333] — 10,406 orders"></div><div class="bar" style="height:17.0px" title="(13.333, 16.0] — 6,331 orders"></div><div class="bar" style="height:10.0px" title="(16.0, 18.667] — 3,700 orders"></div><div class="bar" style="height:6.1px" title="(18.667, 21.333] — 2,274 orders"></div><div class="bar" style="height:3.6px" title="(21.333, 24.0] — 1,337 orders"></div><div class="bar" style="height:3.0px" title="(24.0, 26.667] — 750 orders"></div><div class="bar" style="height:3.0px" title="(26.667, 29.333] — 406 orders"></div><div class="bar" style="height:3.0px" title="(29.333, 32.0] — 229 orders"></div><div class="bar" style="height:3.0px" title="(32.0, 34.667] — 108 orders"></div><div class="bar" style="height:3.0px" title="(34.667, 37.333] — 69 orders"></div><div class="bar" style="height:3.0px" title="(37.333, 40.0] — 90 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>pharmacists_on_duty</td>
+      <td>int64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>6</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>3.00</td>
+      <td>6.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:39.2px" title="(0.995, 1.333] — 16,534 orders"></div><div class="bar" style="height:3.0px" title="(1.333, 1.667] — 0 orders"></div><div class="bar" style="height:66.0px" title="(1.667, 2.0] — 27,873 orders"></div><div class="bar" style="height:3.0px" title="(2.0, 2.333] — 0 orders"></div><div class="bar" style="height:3.0px" title="(2.333, 2.667] — 0 orders"></div><div class="bar" style="height:46.1px" title="(2.667, 3.0] — 19,484 orders"></div><div class="bar" style="height:3.0px" title="(3.0, 3.333] — 0 orders"></div><div class="bar" style="height:3.0px" title="(3.333, 3.667] — 0 orders"></div><div class="bar" style="height:45.6px" title="(3.667, 4.0] — 19,244 orders"></div><div class="bar" style="height:3.0px" title="(4.0, 4.333] — 0 orders"></div><div class="bar" style="height:3.0px" title="(4.333, 4.667] — 0 orders"></div><div class="bar" style="height:20.2px" title="(4.667, 5.0] — 8,531 orders"></div><div class="bar" style="height:3.0px" title="(5.0, 5.333] — 0 orders"></div><div class="bar" style="height:3.0px" title="(5.333, 5.667] — 0 orders"></div><div class="bar" style="height:19.7px" title="(5.667, 6.0] — 8,334 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>lab_WBC_k_per_uL</td>
+      <td>float64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>1589</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>6.51</td>
+      <td>18.75</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:23.3px" title="(0.482, 1.717] — 5,533 orders"></div><div class="bar" style="height:25.7px" title="(1.717, 2.933] — 6,093 orders"></div><div class="bar" style="height:41.5px" title="(2.933, 4.15] — 9,860 orders"></div><div class="bar" style="height:58.5px" title="(4.15, 5.367] — 13,885 orders"></div><div class="bar" style="height:66.0px" title="(5.367, 6.583] — 15,664 orders"></div><div class="bar" style="height:65.2px" title="(6.583, 7.8] — 15,468 orders"></div><div class="bar" style="height:55.7px" title="(7.8, 9.017] — 13,225 orders"></div><div class="bar" style="height:40.1px" title="(9.017, 10.233] — 9,518 orders"></div><div class="bar" style="height:24.2px" title="(10.233, 11.45] — 5,754 orders"></div><div class="bar" style="height:12.3px" title="(11.45, 12.667] — 2,909 orders"></div><div class="bar" style="height:5.8px" title="(12.667, 13.883] — 1,384 orders"></div><div class="bar" style="height:3.0px" title="(13.883, 15.1] — 504 orders"></div><div class="bar" style="height:3.0px" title="(15.1, 16.317] — 153 orders"></div><div class="bar" style="height:3.0px" title="(16.317, 17.533] — 42 orders"></div><div class="bar" style="height:3.0px" title="(17.533, 18.75] — 8 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>lab_HGB_g_dL</td>
+      <td>float64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>1309</td>
+      <td>13.35</td>
+      <td>6.0</td>
+      <td>12.49</td>
+      <td>20.00</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:3.0px" title="(5.986, 6.933] — 247 orders"></div><div class="bar" style="height:3.0px" title="(6.933, 7.867] — 784 orders"></div><div class="bar" style="height:8.2px" title="(7.867, 8.8] — 2,230 orders"></div><div class="bar" style="height:19.0px" title="(8.8, 9.733] — 5,171 orders"></div><div class="bar" style="height:35.9px" title="(9.733, 10.667] — 9,775 orders"></div><div class="bar" style="height:54.0px" title="(10.667, 11.6] — 14,709 orders"></div><div class="bar" style="height:66.0px" title="(11.6, 12.533] — 17,991 orders"></div><div class="bar" style="height:65.6px" title="(12.533, 13.467] — 17,880 orders"></div><div class="bar" style="height:52.8px" title="(13.467, 14.4] — 14,391 orders"></div><div class="bar" style="height:33.3px" title="(14.4, 15.333] — 9,071 orders"></div><div class="bar" style="height:17.3px" title="(15.333, 16.267] — 4,724 orders"></div><div class="bar" style="height:7.8px" title="(16.267, 17.2] — 2,126 orders"></div><div class="bar" style="height:3.0px" title="(17.2, 18.133] — 672 orders"></div><div class="bar" style="height:3.0px" title="(18.133, 19.067] — 165 orders"></div><div class="bar" style="height:3.0px" title="(19.067, 20.0] — 64 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>lab_Platelets_k_per_uL</td>
+      <td>float64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>5284</td>
+      <td>223.9</td>
+      <td>10.0</td>
+      <td>250.20</td>
+      <td>666.50</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:9.2px" title="(9.344, 53.767] — 2,410 orders"></div><div class="bar" style="height:14.8px" title="(53.767, 97.533] — 3,874 orders"></div><div class="bar" style="height:28.6px" title="(97.533, 141.3] — 7,498 orders"></div><div class="bar" style="height:45.4px" title="(141.3, 185.067] — 11,894 orders"></div><div class="bar" style="height:60.7px" title="(185.067, 228.833] — 15,895 orders"></div><div class="bar" style="height:66.0px" title="(228.833, 272.6] — 17,296 orders"></div><div class="bar" style="height:59.5px" title="(272.6, 316.367] — 15,586 orders"></div><div class="bar" style="height:44.9px" title="(316.367, 360.133] — 11,756 orders"></div><div class="bar" style="height:28.2px" title="(360.133, 403.9] — 7,387 orders"></div><div class="bar" style="height:15.0px" title="(403.9, 447.667] — 3,936 orders"></div><div class="bar" style="height:6.2px" title="(447.667, 491.433] — 1,629 orders"></div><div class="bar" style="height:3.0px" title="(491.433, 535.2] — 598 orders"></div><div class="bar" style="height:3.0px" title="(535.2, 578.967] — 186 orders"></div><div class="bar" style="height:3.0px" title="(578.967, 622.733] — 48 orders"></div><div class="bar" style="height:3.0px" title="(622.733, 666.5] — 7 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>lab_Creatinine_mg_dL</td>
+      <td>float64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>222</td>
+      <td>0.7</td>
+      <td>0.3</td>
+      <td>1.00</td>
+      <td>2.59</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:38.5px" title="(0.298, 0.453] — 8,645 orders"></div><div class="bar" style="height:33.6px" title="(0.453, 0.605] — 7,535 orders"></div><div class="bar" style="height:48.8px" title="(0.605, 0.758] — 10,956 orders"></div><div class="bar" style="height:64.3px" title="(0.758, 0.911] — 14,432 orders"></div><div class="bar" style="height:66.0px" title="(0.911, 1.063] — 14,803 orders"></div><div class="bar" style="height:62.6px" title="(1.063, 1.216] — 14,035 orders"></div><div class="bar" style="height:51.2px" title="(1.216, 1.369] — 11,490 orders"></div><div class="bar" style="height:38.2px" title="(1.369, 1.521] — 8,559 orders"></div><div class="bar" style="height:22.0px" title="(1.521, 1.674] — 4,939 orders"></div><div class="bar" style="height:11.9px" title="(1.674, 1.827] — 2,669 orders"></div><div class="bar" style="height:5.4px" title="(1.827, 1.979] — 1,209 orders"></div><div class="bar" style="height:3.0px" title="(1.979, 2.132] — 487 orders"></div><div class="bar" style="height:3.0px" title="(2.132, 2.285] — 171 orders"></div><div class="bar" style="height:3.0px" title="(2.285, 2.437] — 56 orders"></div><div class="bar" style="height:3.0px" title="(2.437, 2.59] — 14 orders"></div></div></td>
+    </tr>
+    <tr>
+      <td>lab_ALT_U_L</td>
+      <td>float64</td>
+      <td>100000</td>
+      <td><span class="miss-good">0.0%</span></td>
+      <td>946</td>
+      <td>6.8</td>
+      <td>3.0</td>
+      <td>29.90</td>
+      <td>128.90</td>
+      <td><div class="vhist" title="Distribution Analysis"><div class="bar" style="height:66.0px" title="(2.874, 11.393] — 17,554 orders"></div><div class="bar" style="height:48.4px" title="(11.393, 19.787] — 12,864 orders"></div><div class="bar" style="height:60.3px" title="(19.787, 28.18] — 16,028 orders"></div><div class="bar" style="height:62.5px" title="(28.18, 36.573] — 16,615 orders"></div><div class="bar" style="height:54.1px" title="(36.573, 44.967] — 14,377 orders"></div><div class="bar" style="height:39.8px" title="(44.967, 53.36] — 10,597 orders"></div><div class="bar" style="height:24.5px" title="(53.36, 61.753] — 6,516 orders"></div><div class="bar" style="height:12.4px" title="(61.753, 70.147] — 3,311 orders"></div><div class="bar" style="height:5.3px" title="(70.147, 78.54] — 1,414 orders"></div><div class="bar" style="height:3.0px" title="(78.54, 86.933] — 522 orders"></div><div class="bar" style="height:3.0px" title="(86.933, 95.327] — 156 orders"></div><div class="bar" style="height:3.0px" title="(95.327, 103.72] — 35 orders"></div><div class="bar" style="height:3.0px" title="(103.72, 112.113] — 7 orders"></div><div class="bar" style="height:3.0px" title="(112.113, 120.507] — 2 orders"></div><div class="bar" style="height:3.0px" title="(120.507, 128.9] — 2 orders"></div></div></td>
+    </tr>
+  </tbody>
+</table></div><div class='section'><h2>🔍 Workflow Data Quality Assessment (4 incomplete features)</h2></div><div class="insight-box">Missing data analysis for medication preparation workflow integrity. Red indicates critical data quality issues requiring immediate attention.</div><div class="tablewrap"><table border="1" class="dataframe compact missing">
+  <thead>
+    <tr style="text-align: right;">
+      <th>column</th>
+      <th>missing%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>second_validation_time</td>
+      <td><span class="miss-warning">10.2%</span></td>
+    </tr>
+    <tr>
+      <td>nurse_validation_time</td>
+      <td><span class="miss-warning">10.0%</span></td>
+    </tr>
+    <tr>
+      <td>prep_complete_time</td>
+      <td><span class="miss-warning">10.0%</span></td>
+    </tr>
+    <tr>
+      <td>floor_dispatch_time</td>
+      <td><span class="miss-warning">9.9%</span></td>
+    </tr>
+  </tbody>
+</table></div><div class='section'><h2>🔗 TAT Driver Correlation Analysis</h2></div><div class="insight-box">Correlation matrix for medication preparation bottleneck identification. Focus on TAT_minutes relationships for workflow optimization opportunities.</div><div class="tablewrap"><table border="1" class="dataframe compact corr">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th class="corr-target">TAT_minutes</th>
+      <th>age</th>
+      <th>floor_occupancy_pct</th>
+      <th>queue_length_at_order</th>
+      <th>nurse_employment_years</th>
+      <th>pharmacist_employment_years</th>
+      <th>pharmacists_on_duty</th>
+      <th>lab_WBC_k_per_uL</th>
+      <th>lab_HGB_g_dL</th>
+      <th>lab_Platelets_k_per_uL</th>
+      <th>lab_Creatinine_mg_dL</th>
+      <th>lab_ALT_U_L</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="corr-target">TAT_minutes</th>
+      <td>1.000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>age</th>
+      <td>-0.002</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>floor_occupancy_pct</th>
+      <td>-0.011</td>
+      <td>-0.001</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>queue_length_at_order</th>
+      <td>0.097</td>
+      <td>-0.0</td>
+      <td>0.661</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>nurse_employment_years</th>
+      <td>-0.018</td>
+      <td>-0.0</td>
+      <td>-0.004</td>
+      <td>-0.007</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>pharmacist_employment_years</th>
+      <td>-0.002</td>
+      <td>0.003</td>
+      <td>-0.007</td>
+      <td>-0.007</td>
+      <td>0.003</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>pharmacists_on_duty</th>
+      <td>-0.191</td>
+      <td>-0.0</td>
+      <td>0.573</td>
+      <td>0.385</td>
+      <td>-0.003</td>
+      <td>-0.003</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>lab_WBC_k_per_uL</th>
+      <td>-0.011</td>
+      <td>-0.001</td>
+      <td>0.0</td>
+      <td>-0.002</td>
+      <td>0.006</td>
+      <td>-0.003</td>
+      <td>0.003</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>lab_HGB_g_dL</th>
+      <td>-0.029</td>
+      <td>-0.004</td>
+      <td>0.003</td>
+      <td>0.0</td>
+      <td>-0.007</td>
+      <td>-0.003</td>
+      <td>0.005</td>
+      <td>0.005</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>lab_Platelets_k_per_uL</th>
+      <td>-0.014</td>
+      <td>0.002</td>
+      <td>-0.003</td>
+      <td>-0.006</td>
+      <td>-0.005</td>
+      <td>0.001</td>
+      <td>0.007</td>
+      <td>-0.005</td>
+      <td>-0.001</td>
+      <td>1.0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>lab_Creatinine_mg_dL</th>
+      <td>0.004</td>
+      <td>-0.0</td>
+      <td>0.004</td>
+      <td>0.002</td>
+      <td>0.001</td>
+      <td>-0.002</td>
+      <td>0.004</td>
+      <td>0.002</td>
+      <td>-0.002</td>
+      <td>-0.001</td>
+      <td>1.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>lab_ALT_U_L</th>
+      <td>-0.003</td>
+      <td>0.004</td>
+      <td>-0.0</td>
+      <td>0.005</td>
+      <td>-0.003</td>
+      <td>-0.0</td>
+      <td>-0.001</td>
+      <td>-0.002</td>
+      <td>-0.003</td>
+      <td>-0.006</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table></div><div class='section'><h2>🎯 High-Impact Correlation Insights (|r| ≥ 0.10)</h2></div><div class="insight-box">Actionable correlation pairs for pharmacy workflow optimization. Prioritize factors with strongest TAT relationships for maximum improvement impact.</div><div class="tablewrap"><table border="1" class="dataframe compact corr-pairs">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Primary Factor</th>
+      <th>Secondary Factor</th>
+      <th>Correlation</th>
+      <th>Absolute Correlation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>floor_occupancy_pct</td>
+      <td>queue_length_at_order</td>
+      <td>0.661</td>
+      <td>0.661</td>
+    </tr>
+    <tr>
+      <td>floor_occupancy_pct</td>
+      <td>pharmacists_on_duty</td>
+      <td>0.573</td>
+      <td>0.573</td>
+    </tr>
+    <tr>
+      <td>queue_length_at_order</td>
+      <td>pharmacists_on_duty</td>
+      <td>0.385</td>
+      <td>0.385</td>
+    </tr>
+    <tr>
+      <td>TAT_minutes</td>
+      <td>pharmacists_on_duty</td>
+      <td>-0.191</td>
+      <td>0.191</td>
+    </tr>
+  </tbody>
+</table></div>

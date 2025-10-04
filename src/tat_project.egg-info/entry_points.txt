@@ -1,0 +1,6 @@
+[console_scripts]
+get-delay-plots = tat.scripts.get_delay_plots:main
+get-eda = tat.scripts.get_eda:main
+prepare-dataset = tat.scripts.prepare_dataset:main
+run-bottleneck-analysis = tat.scripts.run_bottleneck_analysis:main
+train-models = tat.scripts.train_model:train_tat_models

@@ -1,0 +1,267 @@
+{
+  "analysis_timestamp": "2025-10-04T01:00:49.939204",
+  "dataset_summary": {
+    "total_orders": 100000,
+    "avg_tat": 64.59024,
+    "tat_violation_rate": 0.59074,
+    "analysis_period": {
+      "start": "2025-01-01T00:00:00",
+      "end": "2025-07-25T23:59:00"
+    }
+  },
+  "step_bottlenecks": {
+    "step_analysis": {
+      "delay_nurse_to_prep": {
+        "median_delay": 29.181666666666665,
+        "p95_delay": 49.78,
+        "violation_rate": 0.82454,
+        "coefficient_of_variation": 0.41133080888666435,
+        "bottleneck_score": 0.6340881593067622
+      },
+      "delay_dispatch_to_infusion": {
+        "median_delay": 6.7649999999999935,
+        "p95_delay": 20.89508333333331,
+        "violation_rate": 0.08105,
+        "coefficient_of_variation": 1.2088013382897596,
+        "bottleneck_score": 0.3232223352233796
+      },
+      "delay_order_to_nurse": {
+        "median_delay": 12.445,
+        "p95_delay": 22.028416666666647,
+        "violation_rate": 0.17377,
+        "coefficient_of_variation": 0.46195243450744294,
+        "bottleneck_score": 0.31170856549483694
+      },
+      "delay_prep_to_second": {
+        "median_delay": 8.311666666666667,
+        "p95_delay": 15.640083333333328,
+        "violation_rate": 0.02623,
+        "coefficient_of_variation": 0.4739593514345659,
+        "bottleneck_score": 0.18498521672616297
+      },
+      "delay_second_to_dispatch": {
+        "median_delay": 6.038333333333334,
+        "p95_delay": 10.57333333333333,
+        "violation_rate": 0.00194,
+        "coefficient_of_variation": 0.4148611128426471,
+        "bottleneck_score": 0.14281831122256738
+      }
+    },
+    "primary_bottleneck": "delay_nurse_to_prep",
+    "bottleneck_concentration": 0.25818039099570655
+  },
+  "conditional_bottlenecks": {
+    "shift": {
+      "Day": {
+        "sample_size": 33438,
+        "avg_tat": 62.11567677492673,
+        "tat_violation_rate": 0.531730366648723,
+        "primary_bottleneck": "delay_nurse_to_prep",
+        "bottleneck_intensity": 0.2585939500175017
+      },
+      "Evening": {
+        "sample_size": 33300,
+        "avg_tat": 63.0618018018018,
+        "tat_violation_rate": 0.5531831831831832,
+        "primary_bottleneck": "delay_nurse_to_prep",
+        "bottleneck_intensity": 0.2594791383195017
+      },
+      "Night": {
+        "sample_size": 33262,
+        "avg_tat": 68.6080812939691,
+        "tat_violation_rate": 0.6876615958150442,
+        "primary_bottleneck": "delay_nurse_to_prep",
+        "bottleneck_intensity": 0.2608783444977472
+      }
+    },
+    "floor": {
+      "1": {
+        "sample_size": 39832,
+        "avg_tat": 64.97715404699738,
+        "tat_violation_rate": 0.600095400682868,
+        "primary_bottleneck": "delay_nurse_to_prep",
+        "bottleneck_intensity": 0.25988423269531474
+      },
+      "2": {
+        "sample_size": 35096,
+        "avg_tat": 65.06718714383406,
+        "tat_violation_rate": 0.6034875769318441,
+        "primary_bottleneck": "delay_nurse_to_prep",
+        "bottleneck_intensity": 0.25904285166800267
+      },
+      "3": {
+        "sample_size": 25072,
+        "avg_tat": 63.30791320995533,
+        "tat_violation_rate": 0.5580328653477984,
+        "primary_bottleneck": "delay_nurse_to_prep",
+        "bottleneck_intensity": 0.2581779567590407
+      }
+    },
+    "severity": {}
+  },
+  "temporal_bottlenecks": {
+    "hourly": {
+      "0": {
+        "avg_tat": 68.5798379408961,
+        "volume": 4196,
+        "violation_rate": 0.6913727359389895
+      },
+      "1": {
+        "avg_tat": 68.38788910505836,
+        "volume": 4112,
+        "violation_rate": 0.6819066147859922
+      },
+      "2": {
+        "avg_tat": 68.64703076556165,
+        "volume": 4193,
+        "violation_rate": 0.68805151442881
+      },
+      "3": {
+        "avg_tat": 68.75449101796407,
+        "volume": 4175,
+        "violation_rate": 0.6912574850299401
+      },
+      "4": {
+        "avg_tat": 68.83,
+        "volume": 4100,
+        "violation_rate": 0.6912195121951219
+      },
+      "5": {
+        "avg_tat": 68.5710843373494,
+        "volume": 4150,
+        "violation_rate": 0.6853012048192771
+      },
+      "6": {
+        "avg_tat": 68.56652462121212,
+        "volume": 4224,
+        "violation_rate": 0.6872632575757576
+      },
+      "7": {
+        "avg_tat": 61.86082098615497,
+        "volume": 4117,
+        "violation_rate": 0.5197959679378188
+      },
+      "8": {
+        "avg_tat": 62.335426225549384,
+        "volume": 4141,
+        "violation_rate": 0.5414151171214683
+      },
+      "9": {
+        "avg_tat": 62.388888888888886,
+        "volume": 4284,
+        "violation_rate": 0.5452847805788982
+      },
+      "10": {
+        "avg_tat": 62.1719806763285,
+        "volume": 4140,
+        "violation_rate": 0.528743961352657
+      },
+      "11": {
+        "avg_tat": 62.0391688559828,
+        "volume": 4187,
+        "violation_rate": 0.5235251970384524
+      },
+      "12": {
+        "avg_tat": 61.92027938342967,
+        "volume": 4152,
+        "violation_rate": 0.521917148362235
+      },
+      "13": {
+        "avg_tat": 62.03905882352941,
+        "volume": 4250,
+        "violation_rate": 0.5350588235294118
+      },
+      "14": {
+        "avg_tat": 62.16198704103672,
+        "volume": 4167,
+        "violation_rate": 0.5375569954403647
+      },
+      "15": {
+        "avg_tat": 62.837993010484276,
+        "volume": 4006,
+        "violation_rate": 0.5441837244133799
+      },
+      "16": {
+        "avg_tat": 62.98737494044783,
+        "volume": 4198,
+        "violation_rate": 0.5516912815626489
+      },
+      "17": {
+        "avg_tat": 63.086832740213524,
+        "volume": 4215,
+        "violation_rate": 0.5508896797153024
+      },
+      "18": {
+        "avg_tat": 63.28709990300679,
+        "volume": 4124,
+        "violation_rate": 0.5628031037827352
+      },
+      "19": {
+        "avg_tat": 63.427693761814744,
+        "volume": 4232,
+        "violation_rate": 0.5642722117202268
+      },
+      "20": {
+        "avg_tat": 62.99045346062052,
+        "volume": 4190,
+        "violation_rate": 0.5515513126491647
+      },
+      "21": {
+        "avg_tat": 63.127649440342935,
+        "volume": 4199,
+        "violation_rate": 0.5556084782090974
+      },
+      "22": {
+        "avg_tat": 62.73500967117988,
+        "volume": 4136,
+        "violation_rate": 0.5440038684719536
+      },
+      "23": {
+        "avg_tat": 68.52748054474708,
+        "volume": 4112,
+        "violation_rate": 0.6848249027237354
+      }
+    },
+    "day_of_week": {
+      "Monday": {
+        "avg_tat": 64.6852669039146,
+        "volume": 14050,
+        "violation_rate": 0.5965124555160143
+      },
+      "Tuesday": {
+        "avg_tat": 64.53862227986741,
+        "volume": 13878,
+        "violation_rate": 0.5889177114858049
+      },
+      "Wednesday": {
+        "avg_tat": 64.71393425818356,
+        "volume": 14633,
+        "violation_rate": 0.5936581698899747
+      },
+      "Thursday": {
+        "avg_tat": 64.53147856996377,
+        "volume": 14629,
+        "violation_rate": 0.5878734021464215
+      },
+      "Friday": {
+        "avg_tat": 64.43652197577902,
+        "volume": 14698,
+        "violation_rate": 0.5834127092121377
+      },
+      "Saturday": {
+        "avg_tat": 64.46520380627751,
+        "volume": 14082,
+        "violation_rate": 0.5917483312029541
+      },
+      "Sunday": {
+        "avg_tat": 64.76493228795438,
+        "volume": 14030,
+        "violation_rate": 0.5933713471133286
+      }
+    }
+  },
+  "recommendations": [
+    "Focus on pharmacy preparation workflow optimization - consider parallel processing or additional prep stations",
+    "Consider additional staffing during Night shift - highest average TAT of 68.6 minutes"
+  ]
+}

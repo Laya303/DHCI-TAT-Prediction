@@ -1,0 +1,7 @@
+name,type,n_nonnull,miss%,sample
+doctor_order_time,datetime64[ns],100000,0.0,2025-04-15 06:27:00
+nurse_validation_time,object,89988,10.01,39:55.8
+prep_complete_time,object,90009,9.99,43:31.0
+second_validation_time,object,89847,10.15,53:55.1
+floor_dispatch_time,object,90119,9.88,03:07.7
+patient_infusion_time,object,100000,0.0,14:15.0
