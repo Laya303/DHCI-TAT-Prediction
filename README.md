@@ -57,7 +57,7 @@ This system analyzes medication preparation workflows in healthcare settings to 
 
 ### **📈 Analysis Reports & Visualizations**
 
-**Interactive EDA Report**: [📊 Comprehensive Data Analysis](htmlcov_full/index.html)
+**Interactive EDA Report**: [📊 Comprehensive Data Analysis](reports/eda/summary.html)
 
 ## 🛠 **Technical Implementation**
 
