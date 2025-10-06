@@ -55,7 +55,7 @@ Also at console
 
 ### **4. 📊 Comprehensive Bottleneck Analysis**
 - **Step-wise Delay Computation**: Measures time between each workflow stage
-- **Statistical Significance Testing**: Identifies true bottlenecks vs. random variation
+- **Statistical Significance Testing**: Identifies true bottlenecks
 - **Operational Stratification**: Analyzes delays by shift, floor occupancy, and staffing
 - **Actionable Recommendations**: Provides specific interventions for each bottleneck
 
@@ -104,12 +104,23 @@ src/tat/
 
 ## � **Comprehensive Testing Suite**
 
-### **Test Coverage: 900+ Tests | 80% Coverage**
+Test Coverage: 900+ Tests | 80% Coverage**
 
-**Quality Assurance**:
-- **Performance Gates**: RMSE < 15 minutes, inference < 50ms
-- **Data Validation**: Schema compliance, temporal causality checks
-- **Model Reliability**: Cross-validation, calibration testing
+## � **Quality Assurance**:
+
+### Performance Gates
+- 870+ automated tests (unit, integration) ensure reliability.
+- Cross-validation and Optuna optimization for robust model selection.
+- RMSE and accuracy benchmarks on holdout splits.
+
+### Data Validation
+- Schema and missing value checks via custom cleaners.
+- Feature encoding and range validation for all input types.
+
+### Model Reliability
+- SHAP and feature importance analysis.
+- Ensemble and base models validated across seeds/splits.
+- Integration tests confirm end-to-end pipeline stability.
 
 ## � **Quick Start**
 
@@ -131,7 +142,7 @@ python -m tat.scripts.run_bottleneck_analysis  # Bottleneck identification
 
 ### **Key Scripts**
 - `prepare_dataset.py`: Complete data preprocessing pipeline
-- `train_model.py`: Multi-model training with hyperparameter optimization  
+- `train_model.py`: Multi-model training with hyperparameter optimization and feature importance analysis
 - `run_bottleneck_analysis.py`: Statistical bottleneck identification
 - `get_eda.py`: Generate comprehensive EDA reports
 - `get_delay_plots.py`: Visualize step-wise delay patterns
@@ -142,8 +153,8 @@ python -m tat.scripts.run_bottleneck_analysis  # Bottleneck identification
 python -m pytest tests/ --cov=src/tat --cov-report=html
 
 # Run specific test categories  
-python -m pytest tests/unit/test_features/    # Feature engineering tests
-python -m pytest tests/integration/          # End-to-end pipeline tests
+python -m pytest tests/test_features/test_delays.py    # Feature engineering tests
+python -m pytest tests/test_integration/test_system_integration.py        # End-to-end pipeline tests
 ```
 
 ---
