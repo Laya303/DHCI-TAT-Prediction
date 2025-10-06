@@ -105,16 +105,6 @@ src/tat/
 ## � **Comprehensive Testing Suite**
 
 ### **Test Coverage: 900+ Tests | 80% Coverage**
-```
-tests/
-├── unit/ (600+ tests)           # Individual component testing
-│   ├── test_features/           # Feature engineering validation
-│   ├── test_models/             # Model architecture testing  
-│   └── test_pipelines/          # Data pipeline validation
-├── integration/ (150+ tests)    # End-to-end workflow testing
-├── performance/ (50+ tests)     # Latency and throughput benchmarks
-└── clinical/ (100+ tests)       # Healthcare domain validation
-```
 
 **Quality Assurance**:
 - **Performance Gates**: RMSE < 15 minutes, inference < 50ms
