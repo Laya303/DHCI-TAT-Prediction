@@ -79,7 +79,7 @@ Also at console
 
 ### **Feature Engineering (77-dimensional feature space)**
 - **Temporal Features**: Cyclical encoding of time patterns, shift assignments, business hours
-- **Clinical Features**: Lab value normalization, abnormality flags, organ dysfunction scores  
+- **Clinical Features**: Lab value normalization, abnormality flags 
 - **Operational Features**: Staff capacity modeling, queue utilization, floor pressure indices
 - **Delay Features**: Step-wise workflow timing with missing data imputation
 
