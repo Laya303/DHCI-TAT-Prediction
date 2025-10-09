@@ -17,12 +17,6 @@ Test Coverage:
 - Edge cases and error handling for robust clinical deployment
 - Production readiness validation with healthcare metadata preservation
 
-Healthcare Validation:
-- Clinical interpretability through tree-based gradient boosting architecture
-- Evidence-based bottleneck identification through gain-based feature importance
-- Healthcare stakeholder communication through actionable clinical insights
-- Production deployment readiness with MLOps integration capabilities
-- Regulatory compliance through interpretable gradient boosting workflows
 """
 
 import pytest

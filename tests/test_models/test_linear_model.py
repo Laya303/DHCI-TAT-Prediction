@@ -3,59 +3,8 @@ Test suite for functionality.
 
 Production-ready validation framework for RidgeTATRegressor class ensuring
 healthcare linear model integrity, clinical interpretability, and pharmacy
-workflow optimization capabilities. Validates Ridge regression        model = RidgeTATRegressor(random_state=42, alpha=1.0)
-        
-        # Extract and process features like in trained_ridge_model fixture
-        feature_cols = [col for col in sample_tat_data.columns 
-                       if col not in ['TAT_minutes', 'TAT_over_60', 'order_id', 'patient_id', 'ordering_physician']]
-        
-        X = sample_tat_data[feature_cols].copy()
-        y = sample_tat_data['TAT_minutes'].copy()
-        
-        # Apply categorical encodings
-        categorical_mappings = {
-            'sex': {"F": 0, "M": 1},
-            'severity': {"Low": 0, "Medium": 1, "High": 2},
-            'nurse_credential': {"RN": 0, "BSN": 1, "MSN": 2, "NP": 3},
-            'pharmacist_credential': {"RPh": 0, "PharmD": 1, "BCOP": 2},
-        }
-        
-        for col, mapping in categorical_mappings.items():
-            if col in X.columns:
-                X[col] = X[col].map(mapping)
-        
-        categorical_cols = ['race_ethnicity', 'insurance_type', 'diagnosis_type', 'treatment_type', 'shift']
-        for col in categorical_cols:
-                   model = RidgeTATRegressor(random_state=42, alpha=1.0)
-        
-        # Extract and process features
-        feature_cols = [col for col in sample_tat_data.columns 
-                       if col not in ['TAT_minutes', 'TAT_over_60', 'order_id', 'patient_id', 'ordering_physician']]
-        
-        X = sample_tat_data[feature_cols].copy()
-        y = sample_tat_data['TAT_minutes'].copy()
-        
-        # Apply categorical encodings
-        categorical_mappings = {
-            'sex': {"F": 0, "M": 1},
-            'severity': {"Low": 0, "Medium": 1, "High": 2},
-            'nurse_credential': {"RN": 0, "BSN": 1, "MSN": 2, "NP": 3},
-            'pharmacist_credential': {"RPh": 0, "PharmD": 1, "BCOP": 2},
-        }
-        
-        for col, mapping in categorical_mappings.items():
-            if col in X.columns:
-                X[col] = X[col].map(mappif col in X.colung)
-        
-        categorical_cols = ['race_ethnicity', 'insurance_type', 'diagnosis_type', 'treatmns:
-                X[col] = pd.Categorical(X[col]).codes
-        
-        X = X.fillna(X.median())ent_type', 'shift']
-        for col in categorical_cols:
-            if col in X.columns:
-                X[col] = pd.Categorical(X[col]).codes
-        
-        X = X.fillna(X.median())plementation,
+workflow optimization capabilities. Validates Ridge regression
+implementation,
 coefficient analysis, healthcare metrics, and production deployment readiness.
 
 Test Categories:

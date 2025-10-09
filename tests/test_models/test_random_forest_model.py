@@ -16,12 +16,6 @@ Test Coverage:
 - Edge cases and error handling for robust clinical deployment
 - Production readiness validation with healthcare metadata preservation
 
-Healthcare Validation:
-- Clinical interpretability through tree-based ensemble architecture
-- Evidence-based bottleneck identification through feature importance analysis
-- Healthcare stakeholder communication through actionable clinical insights
-- Production deployment readiness with MLOps integration capabilities
-- Regulatory compliance through interpretable ensemble learning workflows
 """
 
 import pytest
